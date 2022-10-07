@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Utility.Hw;
@@ -37,9 +38,9 @@ public class DriveSubsystem extends SubsystemBase {
         rightSpeed = input.scalarProject(m_rightVec) + _zRotation;
         backSpeed = input.scalarProject(m_backVec) + _zRotation;
 
-        Hw.leftDrive.setPower(leftSpeed);
-        Hw.rightDrive.setPower(rightSpeed);
-        Hw.backDrive.setPower(backSpeed);
+        Hw.leftDrive.set(leftSpeed);
+        Hw.rightDrive.set(rightSpeed);
+        Hw.backDrive.set(backSpeed);
     }
 
     /* Each drive motor is a 435 RPM gearbox/motor.
@@ -97,24 +98,20 @@ public class DriveSubsystem extends SubsystemBase {
         return rtn;
     }
     public void resetMotors(){
-        Hw.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Hw.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Hw.backDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Hw.leftDrive.resetEncoder();
+        Hw.rightDrive.resetEncoder();
+        Hw.backDrive.resetEncoder();
 
-        Hw.leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        Hw.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        Hw.backDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        Hw.leftDrive.setRunMode(Motor.RunMode.RawPower);
+        Hw.rightDrive.setRunMode(Motor.RunMode.RawPower);
+        Hw.backDrive.setRunMode(Motor.RunMode.RawPower);
     }
     @Override
     public void periodic() {
-//            opMode.telemetry.addData("Left Cnts = ", m_leftMotor.getCurrentPosition());
-//            opMode.telemetry.addData("Right Cnts = ", m_rightMotor.getCurrentPosition());
-//            opMode.telemetry.addData("Back Cnts = ", m_backMotor.getCurrentPosition());
-//            opMode.telemetry.addData("Inches = ", getInchesDriven(_angle));
-//            opMode.telemetry.addData("PID Out = ", pidDriveOutput);
-//            opMode.telemetry.addData("x = ", x);
-//            opMode.telemetry.addData("y = ", y);
-//            opMode.telemetry.addData("Time = ", elapsedTimer.seconds());
-//            opMode.telemetry.update();
+        m_opMode.telemetry.addData("Left Cnts = ", Hw.leftDrive.getCurrentPosition());
+        m_opMode.telemetry.addData("Right Cnts = ", Hw.rightDrive.getCurrentPosition());
+        m_opMode.telemetry.addData("Back Cnts = ", Hw.backDrive.getCurrentPosition());
+        m_opMode.telemetry.addData("Robot Ang = ", Hw.imu.getAbsoluteHeading());
     }
+
 }

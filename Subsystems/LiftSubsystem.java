@@ -31,19 +31,19 @@ public class LiftSubsystem extends SubsystemBase {
     }
 
     /** Autonomous move to goto a position of counts
-     *  Motor is set to RUN_USING_ENCODER
-     * @param _cnts
+
+     * @param _maxSpeed
      */
-    public void moveAuto(int _cnts){
-        Hw.lift.setRunMode(Motor.RunMode.PositionControl);
-        Hw.lift.setPositionCoefficient(k.LIFT.AutoPID_P);
-        Hw.lift.setTargetPosition(_cnts);
+    public void moveAuto(double _maxSpeed){
+        Hw.lift.set(_maxSpeed);
     }
     public void armMove(double _angle) {
+
         Hw.liftEx.turnToAngle(_angle);
     }
     @Override
     public void periodic() {
         m_opMode.telemetry.addData("Lift Cnts = ", Hw.lift.getCurrentPosition());
     }
+
 }
