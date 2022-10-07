@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Commands.AutoRightStraightHi;
+import org.firstinspires.ftc.teamcode.Commands.LiftAutoDefaultCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.ClawSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.ColorSensorSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.DriveSubsystem;
@@ -30,11 +31,15 @@ public class AutoRIghtStraightHiOpMode extends CommandOpMode {
         m_color = new ColorSensorSubsystem(this);
 
         // Create Commands
+        LiftAutoDefaultCommand liftAutoDefaultCommand = new LiftAutoDefaultCommand(this,m_lift);
+
         AutoRightStraightHi auto = new AutoRightStraightHi(this,m_drive, m_lift, m_claw, m_color);
 
         // register Subsystems
         register(m_drive, m_claw, m_lift, m_color);
 
+        // Set Default Commands
+        m_lift.setDefaultCommand(liftAutoDefaultCommand);
         // Schedule the auto play to run
         CommandScheduler.getInstance().schedule(auto);
     }
