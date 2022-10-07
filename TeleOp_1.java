@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
+import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -57,8 +58,19 @@ public class TeleOp_1 extends CommandOpMode {
         drive.setDefaultCommand(driveDefaultCommand);
         lift.setDefaultCommand(liftDefaultCommand);
         claw.setDefaultCommand(clawDefaultcommand);
+    }
 
+    @Override
+    public void runOpMode() throws InterruptedException{
+        initialize();
 
+        waitForStart();
 
+        // run the scheduler
+        while (!isStopRequested() && opModeIsActive()) {
+            run();
+            telemetry.update();
+        }
+        reset();
     }
 }
