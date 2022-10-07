@@ -38,4 +38,17 @@ public class AutoRIghtStraightHiOpMode extends CommandOpMode {
         // Schedule the auto play to run
         CommandScheduler.getInstance().schedule(auto);
     }
+    @Override
+    public void runOpMode() throws InterruptedException{
+        initialize();
+
+        waitForStart();
+
+        // run the scheduler
+        while (!isStopRequested() && opModeIsActive()) {
+            run();
+            telemetry.update();
+        }
+        reset();
+    }
 }
