@@ -4,19 +4,15 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
-
 
 public class Hw {
-    public static DcMotorEx leftDrive = null;
-    public static DcMotorEx rightDrive = null;
-    public static DcMotorEx backDrive = null;
-    public static Motor lift = null;
+    public static MotorEx leftDrive = null;
+    public static MotorEx rightDrive = null;
+    public static MotorEx backDrive = null;
+    public static MotorEx lift = null;
     public static SimpleServo leftClaw = null;
     public static SimpleServo rightClaw = null;
     public static SimpleServo liftEx = null;
@@ -29,35 +25,34 @@ public class Hw {
         opMode = _opMode;
     }
     public void init(){
-        leftDrive  = opMode.hardwareMap.get(DcMotorEx .class, "l");
-        rightDrive = opMode.hardwareMap.get(DcMotorEx.class, "r");
-        backDrive = opMode.hardwareMap.get(DcMotorEx.class, "b");
-        lift = new Motor(opMode.hardwareMap,"lift",384.5,435);
-        // lift = opMode.hardwareMap.get(DcMotorEx.class, "lift");
+
+        leftDrive = new MotorEx(opMode.hardwareMap, "l", Motor.GoBILDA.RPM_435);
+        leftDrive.setInverted(true);
+        leftDrive.setRunMode(Motor.RunMode.RawPower);
+        leftDrive.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        leftDrive.setDistancePerPulse(k.DRIVE.InchPerCount);
+
+        rightDrive = new MotorEx(opMode.hardwareMap, "r", Motor.GoBILDA.RPM_435);
+        rightDrive.setInverted(false);
+        rightDrive.setRunMode(Motor.RunMode.RawPower);
+        rightDrive.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        rightDrive.setDistancePerPulse(k.DRIVE.InchPerCount);
+
+        backDrive = new MotorEx(opMode.hardwareMap, "b", Motor.GoBILDA.RPM_435);
+        backDrive.setInverted(false);
+        backDrive.setRunMode(Motor.RunMode.RawPower);
+        backDrive.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        backDrive.setDistancePerPulse(k.DRIVE.InchPerCount);
+
+        lift = new MotorEx(opMode.hardwareMap,"lift", Motor.GoBILDA.RPM_312);
+        lift.setInverted(false);
+        lift.setRunMode(Motor.RunMode.RawPower);
+        lift.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        lift.setDistancePerPulse(k.LIFT.InchPerCnt);
 
         leftClaw = new SimpleServo(opMode.hardwareMap, "lc", 0, 270);
-        rightClaw = new SimpleServo(opMode.hardwareMap, "lc", 0, 270);
+        rightClaw = new SimpleServo(opMode.hardwareMap, "rc", 0, 270);
         liftEx = new SimpleServo(opMode.hardwareMap, "lex", 0, 270);
-
-        //leftClaw = opMode.hardwareMap.get(Servo .class,"lc");
-        //rightClaw = opMode.hardwareMap.get(Servo.class,"rc");
-        //liftEx = opMode.hardwareMap.get(Servo.class, "lex");
-
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
-        backDrive.setDirection(DcMotor.Direction.FORWARD);
-
-
-        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        backDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        lift.setRunMode(Motor.RunMode.RawPower);
-
-
-        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        lift.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
         RevIMU imu = new RevIMU(opMode.hardwareMap);
         imu.init();
@@ -68,7 +63,6 @@ public class Hw {
         gpOperator = new GamepadEx(opMode.gamepad2);
 
         opMode.telemetry.addData(">", "Hardware Initialized");
-
 
     }
 }
