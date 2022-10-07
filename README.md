@@ -1,9 +1,9 @@
 # FTC-PowerPlay
 FTC Robot Code for 2022-23 PowerPlay game that utilizes FTCLib
 
-This is only the files and folders for the teamcode folder.
+These are only the files and folders for the teamcode folder.
 To utilize this code you must have FTCLib setup with android studio.
-Simple copy the folders and files to the teamcode folder and compile.
+Simply copy the folders and files to the teamcode folder and compile.
 
 The Robot for this code is as follows.
 Chassis:
@@ -19,4 +19,11 @@ Claw:
    The claw assembly rides on a linear slide up the 35 inch lift. The Claw is gravity fed down and pulled up with a motor.
    
 Color Sensor:
-   A Rev Color Sensor is used to detect the Location after the robot moves forward to the distance need for the sensor.
+   A Rev Color Sensor is used to detect the Location after the robot moves forward to the distance needed for the sensor.
+   
+Autonomous:
+Park in team supplied sleeve location
+Place cone on High junction
+Grab and place cone on High junction
+Grab cone and park at sensed location
+Depending on time, do more cones.
