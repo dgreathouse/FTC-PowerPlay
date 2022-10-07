@@ -38,13 +38,10 @@ public class AutoRightStraightHi extends SequentialCommandGroup {
             new ColorSensorSenseCommand(_opMode, _color),
             // Drive forward to push signal cone to mid field
             new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, 24, 3.0),
-            // Parallel command group to move backwards and raise the lift to hi bar
-            new ParallelCommandGroup(
-                // Drive backwards to leave the cone on the other teams side
-                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, -10, 3.0),
-                // Raise to the Hi junction
-                new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.ConeHeightHi)
-            ),
+            // Raise to the Hi junction
+            new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.ConeHeightHi),
+            // Drive backwards to leave the cone on the other teams side
+            new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, -10, 3.0),
             // Rotate to the Hi junction
             new DriveAutoRotateCommand(_opMode, _drive, 90, 0.5, 2.0),
             // Drive forward to Hi junction
@@ -55,20 +52,19 @@ public class AutoRightStraightHi extends SequentialCommandGroup {
             new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, -10, 3.0),
             // Rotate to the set of 5 cones
             new DriveAutoRotateCommand(_opMode, _drive, 90, 0.5, 2.0),
+            new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.ConeHeight5),
             // Drive to 5 cones and lower lift to top cone height
-            new ParallelCommandGroup(
-                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, -10, 3.0),
-                new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.ConeHeight5)
-            ),
+            new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, -10, 3.0),
             // Close the Claw to grab the cone
             new ClawAutoCommand(_opMode, _claw, k.CLAW.LeftClose, k.CLAW.RightClose),
             // Raise the lift to Mid level to get cone off the stack
             new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.ConeHeightMid),
-            // Drive backwards to signal location to park while lowering cone to floor
-            new ParallelCommandGroup(
-                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, -6+((k.COLOR.ColorNumber-1)*24), 3.0),
-                new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.LimitDown_Cnts)
-            )
+            // lower cone to floor
+            new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.LimitDown_Cnts),
+            // Drive backwards to signal location to park
+            new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, -6+((k.COLOR.ColorNumber-1)*24), 3.0)
+
+
         );
     }
 }

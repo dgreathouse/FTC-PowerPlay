@@ -46,7 +46,6 @@ public class DriveAutoMoveCommand extends CommandBase {
     }
     @Override
     public void execute(){
-
         m_pidDriveOutput = m_pidfMove.performPID(m_drive.getInchesDriven(m_angle));
         m_pidDriveOutput = MyMath.clamp(m_pidDriveOutput,-m_maxSpeed, m_maxSpeed);
         double x = m_pidDriveOutput * Math.sin(Math.toRadians(m_drive.getAngle(m_angle)));
@@ -54,11 +53,10 @@ public class DriveAutoMoveCommand extends CommandBase {
         m_drive.driveCartesianIK(y,x,0,0);
         while(m_pidTimer.seconds() < 0.05){}
         m_pidTimer.reset();
-
     }
     @Override
     public boolean isFinished(){
-        if(!m_pidfMove.onTarget(4) || m_elapsedTimer.seconds() < m_timeOut){
+        if(!m_pidfMove.onTarget(4) || m_elapsedTimer.seconds() > m_timeOut){
             return true;
         }
         return false;

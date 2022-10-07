@@ -3,9 +3,11 @@ package org.firstinspires.ftc.teamcode.Commands;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
 
 import org.firstinspires.ftc.teamcode.Utility.Hw;
 import org.firstinspires.ftc.teamcode.Subsystems.LiftSubsystem;
+import org.firstinspires.ftc.teamcode.Utility.k;
 
 public class LiftDefaultCommand extends CommandBase {
     private final LiftSubsystem m_liftSubsystem;
@@ -17,7 +19,7 @@ public class LiftDefaultCommand extends CommandBase {
 
     @Override
     public void initialize(){
-
+        Hw.lift.setRunMode(Motor.RunMode.RawPower);
     }
     @Override
     public void execute(){
