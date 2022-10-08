@@ -27,22 +27,25 @@ public class Hw {
     public void init(){
 
         leftDrive = new MotorEx(opMode.hardwareMap, "l", Motor.GoBILDA.RPM_435);
-        leftDrive.setInverted(true);
+        leftDrive.setInverted(false);
         leftDrive.setRunMode(Motor.RunMode.RawPower);
         leftDrive.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         leftDrive.setDistancePerPulse(k.DRIVE.InchPerCount);
+        leftDrive.encoder.setDirection(Motor.Direction.REVERSE);
 
         rightDrive = new MotorEx(opMode.hardwareMap, "r", Motor.GoBILDA.RPM_435);
-        rightDrive.setInverted(false);
+        rightDrive.setInverted(true);
         rightDrive.setRunMode(Motor.RunMode.RawPower);
         rightDrive.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         rightDrive.setDistancePerPulse(k.DRIVE.InchPerCount);
+        rightDrive.encoder.setDirection(Motor.Direction.FORWARD);
 
         backDrive = new MotorEx(opMode.hardwareMap, "b", Motor.GoBILDA.RPM_435);
         backDrive.setInverted(false);
         backDrive.setRunMode(Motor.RunMode.RawPower);
         backDrive.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         backDrive.setDistancePerPulse(k.DRIVE.InchPerCount);
+        backDrive.encoder.setDirection(Motor.Direction.REVERSE);
 
         lift = new MotorEx(opMode.hardwareMap,"lift", Motor.GoBILDA.RPM_312);
         lift.setInverted(false);
