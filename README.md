@@ -27,3 +27,7 @@ Place cone on High junction
 Grab and place cone on High junction
 Grab cone and park at sensed location
 Depending on time, do more cones.
+
+Conventions for motor hookup
+Power Red to Red, Black to Black, Rotate Right Encoder is positive for all Encoders
+
