@@ -54,7 +54,7 @@ public class Hw {
         rightClaw = new SimpleServo(opMode.hardwareMap, "rc", 0, 270);
         liftEx = new SimpleServo(opMode.hardwareMap, "lex", 0, 270);
 
-        RevIMU imu = new RevIMU(opMode.hardwareMap);
+        imu = new RevIMU(opMode.hardwareMap);
         imu.init();
 
         colorSensor = opMode.hardwareMap.get(RevColorSensorV3.class, "cs");
