@@ -51,21 +51,21 @@ public class DriveSubsystem extends SubsystemBase {
      */
     public double getInchesDriven(DAngle _angle){
         double rtn = 0;
-        double left = Hw.leftDrive.getCurrentPosition();
-        double right = Hw.rightDrive.getCurrentPosition();
-        double back = Hw.backDrive.getCurrentPosition();
+        double left = Hw.leftDrive.getDistance();
+        double right = Hw.rightDrive.getDistance();
+        double back = Hw.backDrive.getDistance();
         switch (_angle){
             case ang_0: // Left, Right
             case ang_180:
-                rtn = (left + right)/2 * k.DRIVE.InchPerCount;
+                rtn = (left - right)/2;
                 break;
             case ang_60: // Left, Back
             case ang_240:
-                rtn = (left + back)/2 * k.DRIVE.InchPerCount;
+                rtn = (left - back)/2;
                 break;
             case ang_120: // Right, Back
             case ang_300:
-                rtn = (right + right)/2 * k.DRIVE.InchPerCount;
+                rtn = (-right + back)/2;
                 break;
             default:
                 rtn = 0;
@@ -108,10 +108,11 @@ public class DriveSubsystem extends SubsystemBase {
     }
     @Override
     public void periodic() {
-        m_opMode.telemetry.addData("Left Cnts = ", Hw.leftDrive.getCurrentPosition());
-        m_opMode.telemetry.addData("Right Cnts = ", Hw.rightDrive.getCurrentPosition());
-        m_opMode.telemetry.addData("Back Cnts = ", Hw.backDrive.getCurrentPosition());
-        m_opMode.telemetry.addData("Robot Ang = ", Hw.imu.getAbsoluteHeading());
+        m_opMode.telemetry.addData("Left Inches = ", Hw.leftDrive.getDistance());
+        m_opMode.telemetry.addData("Right Inches = ", Hw.rightDrive.getDistance());
+        m_opMode.telemetry.addData("Back Inches = ", Hw.backDrive.getDistance());
+        m_opMode.telemetry.addData("Robot Ang Deg = ", -Hw.imu.getAbsoluteHeading());
+
     }
 
 }
