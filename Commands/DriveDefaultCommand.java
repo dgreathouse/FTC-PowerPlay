@@ -26,14 +26,14 @@ public class DriveDefaultCommand extends CommandBase {
     }
     @Override
     public void execute(){
-        y = m_opMode.gamepad1.left_stick_y;
-        x = m_opMode.gamepad1.left_stick_x;
-        z = m_opMode.gamepad1.right_stick_x;
+        y = -Hw.gpDriver.getLeftY();
+        x = -Hw.gpDriver.getLeftX();
+        z = -Hw.gpDriver.getRightX();
 
         z = z * k.DRIVE.RotationScale;
 
         ang = -Hw.imu.getAbsoluteHeading();
-        m_driveSubsystem.driveCartesianIK(x,y,z,ang);
+        m_driveSubsystem.driveCartesianIK(y,x,z,ang);
         PIDFController f;
 
     }
