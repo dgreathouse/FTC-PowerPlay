@@ -15,11 +15,14 @@ public class LiftDefaultCommand extends CommandBase {
     public LiftDefaultCommand(CommandOpMode _opMode, LiftSubsystem _liftSubsystem) {
         m_liftSubsystem = _liftSubsystem;
         m_opMode = _opMode;
+        addRequirements(m_liftSubsystem);
     }
 
     @Override
     public void initialize(){
+
         Hw.lift.setRunMode(Motor.RunMode.RawPower);
+       // Hw.liftEx.setPosition(0.0);
     }
     @Override
     public void execute(){
@@ -28,5 +31,13 @@ public class LiftDefaultCommand extends CommandBase {
 
         double speed = up - down;
         m_liftSubsystem.move(speed);
+
+        double arm = Hw.gpDriver.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER);
+        if(arm > 0.5){
+            m_liftSubsystem.armMove(0.25);
+        }else {
+            m_liftSubsystem.armMove(0.0);
+        }
+
     }
 }

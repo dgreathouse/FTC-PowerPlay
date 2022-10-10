@@ -11,6 +11,7 @@ public class ClawDefaultcommand extends CommandBase {
     public ClawDefaultcommand(CommandOpMode _opMode, ClawSubsystem _clawSubsystem) {
         this.m_clawSubsystem = _clawSubsystem;
         m_opMode = _opMode;
+        addRequirements(m_clawSubsystem);
     }
 
     @Override

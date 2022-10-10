@@ -13,8 +13,8 @@ public final class k {
     }
 
     public static final class LIFT {
-        public static final int LimitUp_Cnts = 1000;
-        public static final int LimitDown_Cnts = -20;
+        public static final double LimitUp_In = 32.5;
+        public static final double LimitDown_In = 0;
         public static final double AutoExtendAngle = 200;
         public static final double AutoPID_P = 0.3;
         public static final int ConeHeightLow = 200;
@@ -28,10 +28,10 @@ public final class k {
     }
 
     public static final class CLAW {
-        public static final double LeftOpen = 1;
-        public static final double LeftClose = 0;
-        public static final double RightOpen = 1;
-        public static final double RightClose = 0;
+        public static final double LeftOpen = 115;  // Leave
+        public static final double LeftClose = LeftOpen - 60;
+        public static final double RightOpen = 0;  // Leave
+        public static final double RightClose = RightOpen + 60;
     }
 
     public static final class COLOR {

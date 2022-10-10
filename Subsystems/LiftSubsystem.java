@@ -2,13 +2,13 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
 
 import org.firstinspires.ftc.teamcode.Utility.Hw;
 import org.firstinspires.ftc.teamcode.Utility.k;
 
 public class LiftSubsystem extends SubsystemBase {
     CommandOpMode m_opMode;
+    double m_angle;
     public LiftSubsystem(CommandOpMode _opMode){
         m_opMode = _opMode;
     }
@@ -19,12 +19,12 @@ public class LiftSubsystem extends SubsystemBase {
      */
     public void move(double _speed){
         // set a variable called counts to the current lift position
-        double cnts = Hw.lift.getCurrentPosition();
+        double cnts = Hw.lift.getDistance();
         // Stop the lift if it is being commanded a speed in the direction where it is exceeding
         // the mechanical limits of counts for up and down.
-        if(_speed > 0 && cnts > k.LIFT.LimitUp_Cnts) {
+        if(_speed > 0 && cnts > k.LIFT.LimitUp_In) {
             _speed = 0;
-        }else if ( _speed < 0 && cnts < k.LIFT.LimitDown_Cnts){
+        }else if ( _speed < 0 && cnts < k.LIFT.LimitDown_In){
             _speed = 0;
         }
         Hw.lift.set(_speed);
@@ -38,12 +38,16 @@ public class LiftSubsystem extends SubsystemBase {
         Hw.lift.set(_maxSpeed);
     }
     public void armMove(double _angle) {
+        m_angle = _angle;
+        Hw.liftEx.setPosition(m_angle);
 
-        Hw.liftEx.turnToAngle(_angle);
     }
     @Override
     public void periodic() {
-        m_opMode.telemetry.addData("Lift Cnts = ", Hw.lift.getCurrentPosition());
+        m_opMode.telemetry.addData("Lift In = ", Hw.lift.getDistance());
+        m_opMode.telemetry.addData("usPulseLower = ", Hw.liftEx.getPwmRange().usPulseLower);
+        m_opMode.telemetry.addData("usPulseUpper = ", Hw.liftEx.getPwmRange().usPulseUpper);
+        m_opMode.telemetry.addData("LeftEx Pos = ", Hw.liftEx.getPosition());
     }
 
 }

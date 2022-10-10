@@ -60,7 +60,7 @@ public class AutoRightStraightHi extends SequentialCommandGroup {
             // Raise the lift to Mid level to get cone off the stack
             new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.ConeHeightMid),
             // lower cone to floor
-            new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.LimitDown_Cnts),
+            new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.LimitDown_In),
             // Drive backwards to signal location to park
             new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, -6+((k.COLOR.ColorNumber-1)*24), 3.0)
 

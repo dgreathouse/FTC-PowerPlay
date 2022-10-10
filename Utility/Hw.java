@@ -7,6 +7,9 @@ import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.PwmControl;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 public class Hw {
     public static MotorEx leftDrive = null;
@@ -15,7 +18,7 @@ public class Hw {
     public static MotorEx lift = null;
     public static SimpleServo leftClaw = null;
     public static SimpleServo rightClaw = null;
-    public static SimpleServo liftEx = null;
+    public static ServoImplEx liftEx = null;
     public static RevIMU imu;
     public static GamepadEx gpDriver, gpOperator;
     public static RevColorSensorV3 colorSensor;
@@ -55,7 +58,20 @@ public class Hw {
 
         leftClaw = new SimpleServo(opMode.hardwareMap, "lc", 0, 270);
         rightClaw = new SimpleServo(opMode.hardwareMap, "rc", 0, 270);
-        liftEx = new SimpleServo(opMode.hardwareMap, "lex", 0, 270);
+
+        liftEx = opMode.hardwareMap.get(ServoImplEx.class, "lex");
+        liftEx.resetDeviceConfigurationForOpMode();
+        //liftEx.setPwmDisable();
+        PwmControl.PwmRange pwmr = new PwmControl.PwmRange(800,2200);
+        liftEx.setPwmRange(pwmr);
+        liftEx.scaleRange(0.2,0.8);
+       // liftEx.setPosition(0);
+        //liftEx.setPwmEnable();
+        //liftEx.setDirection(Servo.Direction.FORWARD);
+//        liftEx.setPosition(0);
+
+       // liftEx = new Servo(opMode.hardwareMap, "lex", 0, 540);
+       // liftEx.setInverted(true);
 
         imu = new RevIMU(opMode.hardwareMap);
         imu.init();
