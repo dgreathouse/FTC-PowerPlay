@@ -13,8 +13,8 @@ public final class k {
     }
 
     public static final class LIFT {
-        public static final double LimitUp_In = 32.5;
-        public static final double LimitDown_In = 0;
+        public static double LimitUp_In = 32.5;
+        public static double LimitDown_In = -2.0;
         public static final double AutoExtendAngle = 200;
         public static final double AutoPID_P = 0.3;
         public static final int ConeHeightLow = 200;

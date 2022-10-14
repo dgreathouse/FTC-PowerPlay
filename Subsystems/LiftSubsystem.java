@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 import org.firstinspires.ftc.teamcode.Utility.Hw;
 import org.firstinspires.ftc.teamcode.Utility.k;
@@ -9,8 +10,12 @@ import org.firstinspires.ftc.teamcode.Utility.k;
 public class LiftSubsystem extends SubsystemBase {
     CommandOpMode m_opMode;
     double m_angle;
+    boolean m_limitReached = false;
+
     public LiftSubsystem(CommandOpMode _opMode){
+
         m_opMode = _opMode;
+
     }
 
     /** TeleOp move based on speed
@@ -20,9 +25,10 @@ public class LiftSubsystem extends SubsystemBase {
     public void move(double _speed){
         // set a variable called counts to the current lift position
         double cnts = Hw.lift.getDistance();
+        m_limitReached = Hw.liftDIO.getState();
         // Stop the lift if it is being commanded a speed in the direction where it is exceeding
         // the mechanical limits of counts for up and down.
-        if(_speed > 0 && cnts > k.LIFT.LimitUp_In) {
+        if(_speed > 0 && cnts > k.LIFT.LimitUp_In || m_limitReached == true) {
             _speed = 0;
         }else if ( _speed < 0 && cnts < k.LIFT.LimitDown_In){
             _speed = 0;
