@@ -9,7 +9,6 @@ import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.PwmControl;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
 
 public class Hw {
@@ -17,8 +16,8 @@ public class Hw {
     public static MotorEx rightDrive = null;
     public static MotorEx backDrive = null;
     public static MotorEx lift = null;
-    public static SimpleServo leftClaw = null;
-    public static SimpleServo rightClaw = null;
+    public static SimpleServo clawServo = null;
+    //public static SimpleServo rightClaw = null;
     public static ServoImplEx liftEx = null;
     public static RevIMU imu;
     public static GamepadEx gpDriver, gpOperator;
@@ -61,8 +60,8 @@ public class Hw {
         liftDIO = opMode.hardwareMap.get(DigitalChannel.class, "dio");
         liftDIO.setMode(DigitalChannel.Mode.INPUT);
 
-        leftClaw = new SimpleServo(opMode.hardwareMap, "lc", 0, 270);
-        rightClaw = new SimpleServo(opMode.hardwareMap, "rc", 0, 270);
+        clawServo = new SimpleServo(opMode.hardwareMap, "lc", 0, 270);
+        //rightClaw = new SimpleServo(opMode.hardwareMap, "rc", 0, 270);
 
         liftEx = opMode.hardwareMap.get(ServoImplEx.class, "lex");
         liftEx.resetDeviceConfigurationForOpMode();

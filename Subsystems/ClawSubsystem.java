@@ -15,16 +15,16 @@ public class ClawSubsystem extends SubsystemBase {
     }
 
     public void close(){
-        Hw.leftClaw.turnToAngle(k.CLAW.LeftClose);
-        Hw.rightClaw.turnToAngle(k.CLAW.RightClose);
+        Hw.clawServo.turnToAngle(k.CLAW.Close);
+       // Hw.rightClaw.turnToAngle(k.CLAW.RightClose);
     }
     public void open() {
-        Hw.leftClaw.turnToAngle(k.CLAW.LeftOpen);
-        Hw.rightClaw.turnToAngle(k.CLAW.RightOpen);
+        Hw.clawServo.turnToAngle(k.CLAW.Open);
+      //  Hw.rightClaw.turnToAngle(k.CLAW.RightOpen);
     }
-    public void setAngle(double _left, double _right){
-        Hw.leftClaw.turnToAngle(_left);
-        Hw.rightClaw.turnToAngle(_right);
+    public void setAngle(double _angle){
+        Hw.clawServo.turnToAngle(_angle);
+      //  Hw.rightClaw.turnToAngle(_right);
     }
     @Override
     public void periodic(){

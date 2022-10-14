@@ -28,10 +28,10 @@ public final class k {
     }
 
     public static final class CLAW {
-        public static final double LeftOpen = 115;  // Leave
-        public static final double LeftClose = LeftOpen - 60;
-        public static final double RightOpen = 0;  // Leave
-        public static final double RightClose = RightOpen + 60;
+        public static final double Open = 115;  // Leave
+        public static final double Close = Open - 60;
+      //  public static final double RightOpen = 0;  // Leave
+      //  public static final double RightClose = RightOpen + 60;
     }
 
     public static final class COLOR {

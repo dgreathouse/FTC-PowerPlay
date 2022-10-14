@@ -1,12 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
-import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Commands.ClawDefaultcommand;
+import org.firstinspires.ftc.teamcode.Commands.ClawDefaultCommand;
 import org.firstinspires.ftc.teamcode.Commands.DriveDefaultCommand;
 import org.firstinspires.ftc.teamcode.Commands.LiftDefaultCommand;
 import org.firstinspires.ftc.teamcode.Subsystems.ClawSubsystem;
@@ -34,7 +33,7 @@ public class TeleOp_1 extends CommandOpMode {
         // Create Commands
         DriveDefaultCommand driveDefaultCommand = new DriveDefaultCommand(this, drive);
         LiftDefaultCommand liftDefaultCommand = new LiftDefaultCommand(this, lift);
-        ClawDefaultcommand clawDefaultcommand = new ClawDefaultcommand(this, claw);
+        ClawDefaultCommand clawDefaultcommand = new ClawDefaultCommand(this, claw);
 
         // Create buttons
 //        Button clawCloseButton = new GamepadButton(Hw.gpDriver, GamepadKeys.Button.RIGHT_BUMPER);

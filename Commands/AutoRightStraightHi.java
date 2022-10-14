@@ -24,7 +24,7 @@ public class AutoRightStraightHi extends SequentialCommandGroup {
                 // Grab the cone, Drive away from wall and raise the arm
             new ParallelCommandGroup(
                 // Close the claw to grab the cone
-                new ClawAutoCommand(_opMode, _claw, k.CLAW.LeftClose, k.CLAW.RightClose),
+                new ClawAutoCommand(_opMode, _claw, k.CLAW.Close),
                 // Drive Forward away from wall
                 new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, 5, 3.0),
                 // Raise arm to extended position
@@ -47,7 +47,7 @@ public class AutoRightStraightHi extends SequentialCommandGroup {
             // Drive forward to Hi junction
             new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, 24, 3.0),
             // Release the Claw to drop the cone
-            new ClawAutoCommand(_opMode, _claw, k.CLAW.LeftOpen, k.CLAW.RightOpen),
+            new ClawAutoCommand(_opMode, _claw, k.CLAW.Open),
             // Drive backwards to leave the junction and line up with the 5 cones
             new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, -10, 3.0),
             // Rotate to the set of 5 cones
@@ -56,7 +56,7 @@ public class AutoRightStraightHi extends SequentialCommandGroup {
             // Drive to 5 cones and lower lift to top cone height
             new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, -10, 3.0),
             // Close the Claw to grab the cone
-            new ClawAutoCommand(_opMode, _claw, k.CLAW.LeftClose, k.CLAW.RightClose),
+            new ClawAutoCommand(_opMode, _claw, k.CLAW.Close),
             // Raise the lift to Mid level to get cone off the stack
             new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.ConeHeightMid),
             // lower cone to floor
