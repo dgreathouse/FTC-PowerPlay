@@ -26,18 +26,19 @@ public class LiftDefaultCommand extends CommandBase {
     }
     @Override
     public void execute(){
-        double up = Hw.gpOperator.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER);
-        double down = Hw.gpOperator.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER);
-
-        double speed = up - down;
+//        double up = Hw.gpOperator.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER);
+//        double down = Hw.gpOperator.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER);
+//
+//        double speed = up - down;
+        double speed = Hw.gpOperator.getRightX();
         m_liftSubsystem.move(speed);
 
-        double arm = Hw.gpDriver.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER);
-        if(arm > 0.5){
-            m_liftSubsystem.armMove(0.25);
-        }else {
-            m_liftSubsystem.armMove(0.0);
-        }
+//        double arm = Hw.gpDriver.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER);
+//        if(arm > 0.5){
+//            m_liftSubsystem.armMove(0.25);
+//        }else {
+//            m_liftSubsystem.armMove(0.0);
+//        }
 
     }
 }
