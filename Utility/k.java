@@ -13,13 +13,13 @@ public final class k {
     }
 
     public static final class LIFT {
-        public static double LimitUp_In = 32.5;
-        public static double LimitDown_In = -2.0;
+        public static double LimitUp_In = 33.5;
+        public static double LimitDown_In = 0.0;
         public static final double AutoExtendAngle = 200;
         public static final double AutoPID_P = 0.3;
-        public static final int ConeHeightLow = 200;
-        public static final int ConeHeightMid = 300;
-        public static final int ConeHeightHi = 400;
+        public static final int ConeHeightLow = 13;
+        public static final int ConeHeightMid = 25;
+        public static final int ConeHeightHi = 33;
         public static final int ConeHeightJunction = 100;
         public static final int ConeHeight5 = 20;
         public static final double InchPerCnt = 0.008201937;
@@ -28,16 +28,16 @@ public final class k {
     }
 
     public static final class CLAW {
-        public static final double Open = 115;  // Leave
-        public static final double Close = Open - 60;
+        public static final double Open = 165;  // Leave
+        public static final double Close = 95;
       //  public static final double RightOpen = 0;  // Leave
       //  public static final double RightClose = RightOpen + 60;
     }
 
     public static final class COLOR {
-        public static final int ColorRedLimit = 1000;
-        public static final int ColorGreenLimit = 1000;
-        public static final int ColorBlueLimit = 1000;
+        public static final int ColorRedLimit = 800;
+        public static final int ColorGreenLimit = 800;
+        public static final int ColorBlueLimit = 800;
         public static int ColorNumber = 1;
 
     }

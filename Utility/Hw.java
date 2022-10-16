@@ -60,7 +60,7 @@ public class Hw {
         liftDIO = opMode.hardwareMap.get(DigitalChannel.class, "dio");
         liftDIO.setMode(DigitalChannel.Mode.INPUT);
 
-        clawServo = new SimpleServo(opMode.hardwareMap, "lc", 0, 270);
+        clawServo = new SimpleServo(opMode.hardwareMap, "c", 0, 270);
         //rightClaw = new SimpleServo(opMode.hardwareMap, "rc", 0, 270);
 
         liftEx = opMode.hardwareMap.get(ServoImplEx.class, "lex");

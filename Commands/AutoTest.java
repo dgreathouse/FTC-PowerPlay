@@ -9,27 +9,30 @@ import org.firstinspires.ftc.teamcode.Subsystems.ClawSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.ColorSensorSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.LiftSubsystem;
+import org.firstinspires.ftc.teamcode.Utility.ClawEnum;
 import org.firstinspires.ftc.teamcode.Utility.DAngle;
 import org.firstinspires.ftc.teamcode.Utility.k;
 
-public class AutoRightStraightHi extends SequentialCommandGroup {
+public class AutoTest extends SequentialCommandGroup {
 
 /* Line up on the Right side facing the cone with the arm down and touching the wall
 
 
  */
-    public AutoRightStraightHi(CommandOpMode _opMode, DriveSubsystem _drive, LiftSubsystem _lift, ClawSubsystem _claw, ColorSensorSubsystem _color) {
+    public AutoTest(CommandOpMode _opMode, DriveSubsystem _drive, LiftSubsystem _lift, ClawSubsystem _claw, ColorSensorSubsystem _color) {
 
         addCommands(
-                // Grab the cone, Drive away from wall and raise the arm
-//            new ParallelCommandGroup(
-//                // Close the claw to grab the cone
-//                new ClawAutoCommand(_opMode, _claw, k.CLAW.Close),
-//                // Drive Forward away from wall
+
+                // Close the claw to grab the cone
+                new ClawAutoCommand(_opMode, _claw, ClawEnum.CLOSE),
+               new LiftAutoMoveCommand(_opMode,_lift,2,0.6,4),
+               new ColorSensorSenseCommand(_opMode, _color)
+               // new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.ConeHeightLow)
+                // Drive Forward away from wall
 //                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, 5, 3.0),
 //                // Raise arm to extended position
-//                new LiftAutoExtendCommand(_opMode,_lift, k.LIFT.AutoExtendAngle)
-//            ),
+//                new LiftAutoExtendCommand(_opMode,_lift, k.LIFT.AutoExtendAngle),
+//
 //            // Raise Lift to the Low bar to be above the signal cone
 //            new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.ConeHeightLow),
 //            // Drive to the signal cone
@@ -63,7 +66,7 @@ public class AutoRightStraightHi extends SequentialCommandGroup {
 //            new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.LimitDown_In),
 //            // Drive backwards to signal location to park
 //            new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, -6+((k.COLOR.ColorNumber-1)*24), 3.0)
-
+//
 
         );
     }

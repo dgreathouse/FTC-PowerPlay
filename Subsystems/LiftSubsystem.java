@@ -11,7 +11,7 @@ public class LiftSubsystem extends SubsystemBase {
     CommandOpMode m_opMode;
     double m_angle;
     boolean m_limitReached = false;
-
+    double m_speed;
     public LiftSubsystem(CommandOpMode _opMode){
 
         m_opMode = _opMode;
@@ -23,17 +23,29 @@ public class LiftSubsystem extends SubsystemBase {
      * @param _speed +/- 1.0 speed to give the motor
      */
     public void move(double _speed){
+        m_speed = _speed;
+        double rtn = _speed;
+
         // set a variable called counts to the current lift position
-        double cnts = Hw.lift.getDistance();
+        double in = Hw.lift.getDistance();
         m_limitReached = Hw.liftDIO.getState();
         // Stop the lift if it is being commanded a speed in the direction where it is exceeding
         // the mechanical limits of counts for up and down.
-        if(_speed > 0 && cnts > k.LIFT.LimitUp_In || m_limitReached == true) {
-            _speed = 0;
-        }else if ( _speed < 0 && cnts < k.LIFT.LimitDown_In){
-            _speed = 0;
+        if(_speed > 0 && in > k.LIFT.LimitUp_In) {
+            m_speed = 0;
+        }else if ( _speed < 0 && in < k.LIFT.LimitDown_In){
+            m_speed = 0;
+        }else if (_speed > 0 && m_limitReached){
+            m_speed = 0;
+        }else {
+            m_speed = _speed;
         }
-        Hw.lift.set(_speed);
+        if(_speed > 0 && in > 25){
+            m_speed = m_speed / 2;
+        }else if(_speed < 0 && in < 8){
+            m_speed = m_speed /2;
+        }
+        Hw.lift.set(m_speed);
     }
 
     /** Autonomous move to goto a position of counts
@@ -50,7 +62,10 @@ public class LiftSubsystem extends SubsystemBase {
     }
     @Override
     public void periodic() {
+
         m_opMode.telemetry.addData("Lift In = ", Hw.lift.getDistance());
+        m_opMode.telemetry.addData("Lift = ",m_speed);
+        m_opMode.telemetry.addData("Lift DIO = ", Hw.liftDIO.getState());
         m_opMode.telemetry.addData("usPulseLower = ", Hw.liftEx.getPwmRange().usPulseLower);
         m_opMode.telemetry.addData("usPulseUpper = ", Hw.liftEx.getPwmRange().usPulseUpper);
         m_opMode.telemetry.addData("LeftEx Pos = ", Hw.liftEx.getPosition());

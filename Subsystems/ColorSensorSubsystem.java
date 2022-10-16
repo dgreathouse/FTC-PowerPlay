@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.Utility.k;
 
 public class ColorSensorSubsystem extends SubsystemBase {
     CommandOpMode m_opMode;
+
     public ColorSensorSubsystem(CommandOpMode _opMode){
         m_opMode = _opMode;
     }
@@ -25,6 +26,7 @@ public class ColorSensorSubsystem extends SubsystemBase {
             rtn = 3;
         }
         k.COLOR.ColorNumber = rtn;
+
         return rtn;
     }
     @Override
@@ -32,6 +34,7 @@ public class ColorSensorSubsystem extends SubsystemBase {
         m_opMode.telemetry.addData("Red = ", Hw.colorSensor.red());
         m_opMode.telemetry.addData("Green = ", Hw.colorSensor.green());
         m_opMode.telemetry.addData("Blue = ", Hw.colorSensor.blue());
+        m_opMode.telemetry.addData("Location = ", k.COLOR.ColorNumber);
         m_opMode.telemetry.update();
 
     }
