@@ -36,19 +36,22 @@ public class DriveAutoRotateCommand extends CommandBase {
         m_pidfRotation.setInputRange(0,m_angle*2);
         m_pidfRotation.setIntegralRange(-0.2, 0.2);
         m_pidfRotation.setTolerance(1);
+        m_pidfRotation.enable();
+        m_elapsedTimer.reset();
         m_pidTimer.reset();
     }
     @Override
     public void execute(){
-        m_pidRotateOutput = m_pidfRotation.performPID(Hw.imu.getAbsoluteHeading());
+        m_pidRotateOutput = m_pidfRotation.performPID(-Hw.imu.getAbsoluteHeading());
         m_pidRotateOutput = MyMath.clamp(m_pidRotateOutput,-m_maxSpeed, m_maxSpeed);
-        m_drive.driveCartesianIK(0,0,m_pidRotateOutput,0);
+        m_drive.driveCartesianIK(0,0,-m_pidRotateOutput,0);
         while(m_pidTimer.seconds() < 0.05){}
         m_pidTimer.reset();
     }
     @Override
     public boolean isFinished(){
-        if(!m_pidfRotation.onTarget(4) || m_elapsedTimer.seconds() < m_timeOut){
+        if(m_pidfRotation.onTarget(4) || m_elapsedTimer.seconds() > m_timeOut){
+            m_drive.driveCartesianIK(0,0,0,0);
             return true;
         }
         return false;

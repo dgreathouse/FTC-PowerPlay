@@ -6,7 +6,8 @@ public final class k {
     public static final class DRIVE {
         public static final double InchPerCount = 0.03095;
         public static final double AngleLimit = 0.8;
-        public static final PIDFCoefficients MovePIDFCoef= new PIDFCoefficients(0.05,0.00425,0.35,0);
+        public static final PIDFCoefficients MovePIDFCoef= new PIDFCoefficients(0.05,0.005,0.0,0);
+        //public static final PIDFCoefficients MovePIDFCoef= new PIDFCoefficients(0.05,0.00425,0.35,0);
         public static final PIDFCoefficients MoveRotatePIDFCoef= new PIDFCoefficients(1,0,0,0);
         public static final PIDFCoefficients RotatePIDFCoef= new PIDFCoefficients(0.01,0,0,0);
         public static final double RotationScale = 0.5;

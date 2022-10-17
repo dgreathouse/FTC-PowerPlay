@@ -44,8 +44,6 @@ public class LiftAutoMoveCommand extends CommandBase {
         double out = m_pid.performPID(Hw.lift.getDistance());
         out = MyMath.clamp(out,-m_speed,m_speed);
         m_lift.move(out);
-
-
     }
     @Override
     public boolean isFinished(){
@@ -54,6 +52,5 @@ public class LiftAutoMoveCommand extends CommandBase {
             return true;
         }
         return false;
-
     }
 }
