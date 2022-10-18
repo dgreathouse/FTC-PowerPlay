@@ -60,6 +60,9 @@ public class LiftSubsystem extends SubsystemBase {
         Hw.liftEx.setPosition(m_angle);
 
     }
+    public void resetEncoder(){
+        Hw.lift.encoder.reset();
+    }
     @Override
     public void periodic() {
 
