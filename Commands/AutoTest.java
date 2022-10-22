@@ -40,7 +40,7 @@ public class AutoTest extends SequentialCommandGroup {
                     // Close the claw to grab the cone
                     new ClawAutoCommand(_opMode, _claw, ClawEnum.CLOSE),
                     // Drive Forward away from wall
-                    new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, 8, 5.0)
+                    new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.5, 8, 2.0)
                 ),
                 new ParallelCommandGroup(
                     // The lift servo should exit immediately but the command should continue to the servo
@@ -50,29 +50,31 @@ public class AutoTest extends SequentialCommandGroup {
                 ),
                 // Reset the encoder so 0 is all the way down
                 new LiftAutoResetEncoder(_opMode,_lift),
-
+                // Raise lift to above the Cone
+                new LiftAutoMoveCommand(_opMode, _lift, 10, 0.75, 2),
                 new ParallelCommandGroup(
-                    // Raise lift to Hi Junction
-                    new LiftAutoMoveCommand(_opMode, _lift, 32, 0.75, 3),
-                    // Sense the color after a delay while pushing cone
-                    new ColorSensorSenseCommand(_opMode, _color,3),
+                    // Raise lift to above the Cone
+                    new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.ConeHeightHi, 0.65, 3),
                     // Drive forward to center line
-                    new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, 48, 5.0)
+                    new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.4, 8.5, 3.0)
                 ),
-//
+                // Sense the color after a delay while pushing cone
+                new ColorSensorSenseCommand(_opMode, _color,0.5),
+                // Drive forward to center line
+                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.6, 24, 7.0),
                 // Drive to Hi Junction at an angle
-                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_60, 0.5, 10, 5.0),
+                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_60, 0.5, 12, 5.0),
                 // Open the Claw to drop on Hi Junction
                 new ClawAutoCommand(_opMode, _claw, ClawEnum.OPEN),
-
+                // Drive back to line up with stack of 5 cones
+                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_240, 0.5, 10, 5.0),
                 new ParallelCommandGroup(
-                    // Drive back to line up with stack of 5 cones
-                    new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_60, 0.5, 10, 5.0),
+                    // Rotate to the stack of 5 cones
+                    new DriveAutoRotateCommand(_opMode, _drive, -90, 0.5, 5.0),
                     // Lower lift to Cone 5 height
-                    new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.ConeHeightHi, 0.75, 3)
+                    new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.ConeHeight5, 0.75, 3)
                 ),
-                // Rotate to the stack of 5 cones
-                new DriveAutoRotateCommand(_opMode, _drive, -90, 0.5, 5.0),
+
                 // Drive to stack of 5 cones
                 new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.5, 7, 5.0),
                 // Close the claw to grab the cone

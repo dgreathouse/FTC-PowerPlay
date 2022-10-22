@@ -32,7 +32,7 @@ public class LiftAutoMoveCommand extends CommandBase {
     @Override
     public void initialize(){
         m_pid = new PIDFController(0.4,0.04,0.0,0.0);
-        m_pid.setTolerance(.1);
+        m_pid.setTolerance(3);
         m_pid.setOutputRange(0.0, 0.7);
         m_pid.setInputRange(0,33);
         m_pid.setIntegralRange(0,.25);

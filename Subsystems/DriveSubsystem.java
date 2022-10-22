@@ -18,6 +18,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     CommandOpMode m_opMode;
 
+    double m_ySpeed, m_xSpeed, m_zRotation;
     public DriveSubsystem(CommandOpMode _opMode){
         m_opMode = _opMode;
     }
@@ -30,6 +31,8 @@ public class DriveSubsystem extends SubsystemBase {
         MyMath.clamp(_ySpeed, -1.0, 1.0);
         MyMath.clamp(_xSpeed, -1.0, 1.0);
         MyMath.clamp(_zRotation, -1.0, 1.0);
+
+        m_zRotation = _zRotation;
 
         Vector2d input = new Vector2d(_ySpeed,_xSpeed);
         input.rotate(-_gyroAngle);
@@ -60,8 +63,10 @@ public class DriveSubsystem extends SubsystemBase {
                 rtn = (left - right)/2;
                 break;
             case ang_60: // Left, Back
-            case ang_240:
                 rtn = (left - back)/2;
+                break;
+            case ang_240:
+                rtn = -(left - back)/2;
                 break;
             case ang_120: // Right, Back
             case ang_300:
@@ -112,7 +117,7 @@ public class DriveSubsystem extends SubsystemBase {
         m_opMode.telemetry.addData("Right Inches = ", Hw.rightDrive.getDistance());
         m_opMode.telemetry.addData("Back Inches = ", Hw.backDrive.getDistance());
         m_opMode.telemetry.addData("Robot Ang Deg = ", -Hw.imu.getAbsoluteHeading());
-
+        m_opMode.telemetry.addData("zRotation = ", m_zRotation);
     }
 
 }

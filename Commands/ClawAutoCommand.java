@@ -34,7 +34,7 @@ public class ClawAutoCommand extends CommandBase {
 
         }
         m_elapsedTimer.reset();
-        while(m_elapsedTimer.seconds() < 1){}
+        while(m_elapsedTimer.seconds() < 0.25){}
     }
 
     @Override
