@@ -44,11 +44,11 @@ public class TeleOp_1 extends CommandOpMode {
 //        clawOpenButton.whenPressed(new InstantCommand(() -> {
 //            claw.open();
 //        }));
-        Hw.gpOperator.getGamepadButton(GamepadKeys.Button.A)
-                .and(Hw.gpOperator.getGamepadButton(GamepadKeys.Button.B).negate())
+        Hw.gpOperator.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .and(Hw.gpOperator.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER).negate())
                         .whenActive(new InstantCommand(() ->claw.open(), claw));
-        Hw.gpOperator.getGamepadButton(GamepadKeys.Button.B)
-                .and(Hw.gpOperator.getGamepadButton(GamepadKeys.Button.A).negate())
+        Hw.gpOperator.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .and(Hw.gpOperator.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER).negate())
                 .whenActive(new InstantCommand(() -> claw.close(), claw));
         // register Subsystems
         register(drive, lift, claw);

@@ -27,14 +27,15 @@ public class LiftAutoMoveCommand extends CommandBase {
         m_inches = _inches;
         m_speed = _speed;
         m_timeOut = _timeOut;
-        m_elapsedTimer.reset();
+
     }
     @Override
     public void initialize(){
-        m_pid = new PIDFController(0.2,0.0,0.0,0.0);
-        m_pid.setTolerance(.5);
+        m_pid = new PIDFController(0.4,0.04,0.0,0.0);
+        m_pid.setTolerance(.1);
         m_pid.setOutputRange(0.0, 0.7);
         m_pid.setInputRange(0,33);
+        m_pid.setIntegralRange(0,.25);
         m_pid.setSetpoint(m_inches);
         m_pid.enable();
         m_elapsedTimer.reset();

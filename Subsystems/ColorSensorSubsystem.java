@@ -35,7 +35,7 @@ public class ColorSensorSubsystem extends SubsystemBase {
         m_opMode.telemetry.addData("Green = ", Hw.colorSensor.green());
         m_opMode.telemetry.addData("Blue = ", Hw.colorSensor.blue());
         m_opMode.telemetry.addData("Location = ", k.COLOR.ColorNumber);
-        m_opMode.telemetry.update();
+
 
     }
 }

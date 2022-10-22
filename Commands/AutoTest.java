@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
+import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.ClawSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.ColorSensorSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.DriveSubsystem;
@@ -19,7 +20,7 @@ public class AutoTest extends SequentialCommandGroup {
 
 
  */
-    public AutoTest(CommandOpMode _opMode, DriveSubsystem _drive, LiftSubsystem _lift, ClawSubsystem _claw, ColorSensorSubsystem _color) {
+    public AutoTest(CommandOpMode _opMode, DriveSubsystem _drive, LiftSubsystem _lift, ClawSubsystem _claw, ColorSensorSubsystem _color, ArmSubsystem _arm) {
 
         addCommands(
                 /* Setup Routine for robot before match.
@@ -35,53 +36,56 @@ public class AutoTest extends SequentialCommandGroup {
 //                new ParallelCommandGroup(
 //
 //                ),
-
-                // Close the claw to grab the cone
-                new ClawAutoCommand(_opMode, _claw, ClawEnum.CLOSE),
-                // Drive Forward away from wall
-                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.5, 10, 5.0),
-                // The lift servo should exit immediately but the command should continue to the servo
-                new LiftAutoExtendCommand(_opMode,_lift, 142),
-                // Raise Lift to take up the slack
-                new LiftAutoMoveCommand(_opMode, _lift, 2, 0.2, 3),
+                new ParallelCommandGroup(
+                    // Close the claw to grab the cone
+                    new ClawAutoCommand(_opMode, _claw, ClawEnum.CLOSE),
+                    // Drive Forward away from wall
+                    new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, 8, 5.0)
+                ),
+                new ParallelCommandGroup(
+                    // The lift servo should exit immediately but the command should continue to the servo
+                    new ArmAutoExtendCommand(_opMode,_arm, k.LIFT.AutoExtendAngle),
+                    // Raise Lift to take up the slack
+                    new LiftAutoMoveCommand(_opMode, _lift, 3.75, 0.19, 2)
+                ),
                 // Reset the encoder so 0 is all the way down
                 new LiftAutoResetEncoder(_opMode,_lift),
-                // Raise the lift to get claw our of the way of the symbol
-                new LiftAutoMoveCommand(_opMode,_lift,10,0.5,4),
-                // Drive forward to signal cone
-                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.5, 8, 5.0),
-                // Sense the color
-                new ColorSensorSenseCommand(_opMode, _color),
-                // Drive to centerline
-                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.5, 30, 5.0),
-                // Backup
-                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.5, -4, 5.0),
-                // Raise to High
-                new LiftAutoMoveCommand(_opMode,_lift,k.LIFT.ConeHeightHi,0.5,4),
-                // Rotate to the High
-                new DriveAutoRotateCommand(_opMode, _drive, 35, 0.5, 5.0),
-                // Drive to junction
-                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.5, 7, 5.0),
-                // Open the claw
+
+                new ParallelCommandGroup(
+                    // Raise lift to Hi Junction
+                    new LiftAutoMoveCommand(_opMode, _lift, 32, 0.75, 3),
+                    // Sense the color after a delay while pushing cone
+                    new ColorSensorSenseCommand(_opMode, _color,3),
+                    // Drive forward to center line
+                    new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, 48, 5.0)
+                ),
+//
+                // Drive to Hi Junction at an angle
+                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_60, 0.5, 10, 5.0),
+                // Open the Claw to drop on Hi Junction
                 new ClawAutoCommand(_opMode, _claw, ClawEnum.OPEN),
-                // Drive back from junction
-                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.5, 7, 5.0),
-                // Rotate to the Cones
+
+                new ParallelCommandGroup(
+                    // Drive back to line up with stack of 5 cones
+                    new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_60, 0.5, 10, 5.0),
+                    // Lower lift to Cone 5 height
+                    new LiftAutoMoveCommand(_opMode, _lift, k.LIFT.ConeHeightHi, 0.75, 3)
+                ),
+                // Rotate to the stack of 5 cones
                 new DriveAutoRotateCommand(_opMode, _drive, -90, 0.5, 5.0),
-                // Lower to the stack # 5 cone height
-                new LiftAutoMoveCommand(_opMode,_lift,k.LIFT.ConeHeight5,0.5,4),
-                // Drive to cone stack
-                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.5, 20, 5.0),
+                // Drive to stack of 5 cones
+                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.5, 7, 5.0),
                 // Close the claw to grab the cone
                 new ClawAutoCommand(_opMode, _claw, ClawEnum.CLOSE),
-                // Raise to Mid level
+                // Raise to High
                 new LiftAutoMoveCommand(_opMode,_lift,k.LIFT.ConeHeightMid,0.5,4),
-                // Drive backwards to signal location to park
-                new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, -6+((k.COLOR.ColorNumber-1)*24), 3.0)
 
-
-//
-
+                new ParallelCommandGroup(
+                    // Drive backwards to signal location to park
+                    new DriveAutoMoveCommand(_opMode,_drive, DAngle.ang_0, 0.75, -6-((k.COLOR.ColorNumber-1)*22), 3.0), // -6 -28 -50
+                    // Lower Lift so the transition from Auto to Teleop does not let go of cone
+                    new LiftAutoMoveCommand(_opMode,_lift,k.LIFT.ConeHeightJunction,0.5,4)
+                )
         );
     }
 }

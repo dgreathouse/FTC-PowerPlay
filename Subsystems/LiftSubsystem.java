@@ -24,10 +24,10 @@ public class LiftSubsystem extends SubsystemBase {
      */
     public void move(double _speed){
         m_speed = _speed;
-        double rtn = _speed;
 
-        // set a variable called counts to the current lift position
+        // set a variable called in to the current lift position in Inches
         double in = Hw.lift.getDistance();
+        // Check if limit reached
         m_limitReached = Hw.liftDIO.getState();
         // Stop the lift if it is being commanded a speed in the direction where it is exceeding
         // the mechanical limits of counts for up and down.
@@ -71,7 +71,7 @@ public class LiftSubsystem extends SubsystemBase {
         m_opMode.telemetry.addData("Lift DIO = ", Hw.liftDIO.getState());
         m_opMode.telemetry.addData("usPulseLower = ", Hw.liftEx.getPwmRange().usPulseLower);
         m_opMode.telemetry.addData("usPulseUpper = ", Hw.liftEx.getPwmRange().usPulseUpper);
-        m_opMode.telemetry.addData("LeftEx Pos = ", Hw.liftEx.getPosition());
+
     }
 
 }

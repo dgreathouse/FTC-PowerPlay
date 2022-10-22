@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Commands.AutoRightStraightHi;
 import org.firstinspires.ftc.teamcode.Commands.AutoTest;
 import org.firstinspires.ftc.teamcode.Commands.LiftAutoDefaultCommand;
+import org.firstinspires.ftc.teamcode.Subsystems.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.ClawSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.ColorSensorSubsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.DriveSubsystem;
@@ -19,6 +20,7 @@ public class AutoTestOpMode extends CommandOpMode {
     LiftSubsystem m_lift;
     ClawSubsystem m_claw;
     ColorSensorSubsystem m_color;
+    ArmSubsystem m_arm;
     AutoTest m_auto;
     @Override
     public void initialize() {
@@ -31,14 +33,14 @@ public class AutoTestOpMode extends CommandOpMode {
         m_lift = new LiftSubsystem(this);
         m_claw = new ClawSubsystem(this);
         m_color = new ColorSensorSubsystem(this);
-
+        m_arm = new ArmSubsystem(this);
         // Create Commands
-      //  LiftAutoDefaultCommand liftAutoDefaultCommand = new LiftAutoDefaultCommand(this,m_lift);
 
-        m_auto = new AutoTest(this,m_drive, m_lift, m_claw, m_color);
+
+        m_auto = new AutoTest(this,m_drive, m_lift, m_claw, m_color, m_arm);
 
         // register Subsystems
-        register(m_drive, m_claw, m_lift, m_color);
+        register(m_drive, m_claw, m_lift, m_color, m_arm);
 
         // Set Default Commands
     //    m_lift.setDefaultCommand(liftAutoDefaultCommand);
